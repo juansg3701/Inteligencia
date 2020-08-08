@@ -10,6 +10,7 @@ def home():
 def datos():
 	cars = ["Ford", "Volvo", "BMW"] 
 	nombre= request.form['nombre'];
+	int(request.args.get('player_move',0))
 	return render_template('mesa.html',nombre=nombre)
 
 @app.route('/datos/<nombre>')

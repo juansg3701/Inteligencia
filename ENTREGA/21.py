@@ -4,15 +4,6 @@ import logging
 #logging.basicConfig(level=logging.INFO)
 
 deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
-unusable_hand = [];
-
-def split(hand):
-	hand = [4,4]
-	aux_card = ''
-	for card in hand:
-		if (card == aux_card):
-			print(str(card) + "y" + str(aux_card) +"son iguales. Puedes dividir");
-		aux_card = card
 
 
 # deal: Crea un arreglo hand y la llena de manera random
@@ -20,7 +11,9 @@ def split(hand):
 # si la carta tiene un valor de 11,12, 13, 14 le asigna 
 # una letra.
 
-def deal(deck):
+def deal():
+  global deck
+  deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
   hand = []
   for i in range(2):
     random.shuffle(deck)
@@ -32,6 +25,67 @@ def deal(deck):
     hand.append(card)
   return hand
 
+def deal_Card():
+  global deck
+  deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
+  hand = []
+  for i in range(1):
+    random.shuffle(deck)
+    card = deck.pop()
+    if card == 11:card = "J"
+    if card == 12:card = "Q"
+    if card == 13:card = "K"
+    if card == 14:card = "A"
+    hand.append(card)
+  return hand
+
+# select_hand: Método para seleccionar una nueva mano
+def select_hand(hand, new_hand):
+  selected_hand = hand
+  trigger = True
+  action = 0;
+ 
+  while trigger == True:
+    action = input("Ahora tienes dos manos, elige cuál deseas escoger para seguir jugando:\n  1.Mano principal -> " + str(hand) + "\n  2.Mano nueva -> " + str(new_hand)+"\n").lower()
+    assert action in ["1", "2"]
+
+    if action == "1":
+      print("Haz seleccionado la mano 1")
+      trigger = False
+    elif action == "2":
+      print("Haz seleccionado la mano 2")
+      selected_hand = new_hand
+      trigger = False
+    else:
+      print("Haz seleccionado una mano inválida, prueba otra vez")
+  return select_hand
+
+# split: Si el jugador tiene dos carstas iguales, las divide en dos mazos distintos 
+# y otorga una nueva carata a cada uno.
+def split(hand):
+  nueva = deal()
+  hand =[4,4]
+  aux_card = ''
+  counter=0
+  selected_hand = hand;
+  split = False
+
+  for card in hand:
+    if (card == aux_card):
+      print(str(card) + " y " + str(aux_card) +" son iguales. Puedes dividir")
+      split = True
+      hand.pop(counter)
+      nueva.pop()
+      nueva.append(card)
+      # Da nuevas caratas, una a cada mano
+      hand.append(deal_Card())
+      nueva.append(deal_Card())
+
+    aux_card = card
+    counter = counter +1
+  if split == True:
+    selected_hand = select_hand(hand, nueva)
+  return select_hand
 
 def total(hand, return_usable_ace=False):
   total = 0
@@ -98,10 +152,9 @@ def game(get_player_action):
   # store list of data that
   player_data_lst = []
   logging.info("Bienvenido a Blackjack!\n")
-  global deck
-  deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
-  dealer_hand = deal(deck) #Da carats aleatorias al jugador
-  player_hand = deal(deck)
+  
+  dealer_hand = deal() #Da carats aleatorias al jugador
+  player_hand = deal()
   choice = 0
   reward = -2.0
   while choice != "q":
@@ -122,8 +175,10 @@ def game(get_player_action):
       reward = score(dealer_hand, player_hand)
       choice = "q"
     elif choice == "sp":
-    	split(player_hand)
-    	print("Ha seleccionado dividir");
+      print("Ha seleccionado dividir")
+      split(player_hand)
+    	# player_hand = split(player_hand)
+    	
     	
   final_state = (player_hand, dealer_hand)
   return (reward, player_data_lst, final_state)

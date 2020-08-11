@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+    <title>21</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="{{url_for('static',filename='./js/jQuery_3.4.1.min.js')}}"></script>
+    <script src="{{url_for('static',filename='./js/jquery-ui.min.js')}}"></script>
+     <link href="{{url_for('static',filename='css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<form action="http://localhost:5000/datos" method="post">
+
+		
+			<div class="container" >
+				<div class="form-row">
+					<div class="form-group col-12 col-sm">
+					<h3>Info</h3>	
+						</div>
+				</div>	
+			</div>
+
+
+			<div class="container" >
+				<div class="form-row">
+					<div class="form-group col-12 col-sm">
+					<input type="text" name="nombre">	
+						</div>
+				</div>	
+			</div>
+
+
+			<div class="container">
+				<div class="form-row">
+					<div class="form-group col-6 col-sm">
+					<a href="/mesa"><button type="submit" name="" id="Entrar" class="form-control btn-success" >Entrar</button></a>
+					</div>
+					
+				</div>	
+			</div>
+		
+
+	</form>
+
+
+
+</body>
+
+</html>

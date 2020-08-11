@@ -1,4 +1,9 @@
 body {
-  font-family: "Open Sans", sans-serif;
-  color: #444444;
+    font-family: "Open Sans", sans-serif;
+    color: #444444;
+}
+.back-index {
+    background-color: cyan;
+    background-image: url('../img/fondo-principal.jpg');
+    background-repeat: no-repeat;
 }

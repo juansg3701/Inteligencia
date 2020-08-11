@@ -17,6 +17,8 @@ def datos():
 def funcion1(nombre):
 	return "hola" %nombre
 
+console.log(holi);
+
 
 if __name__ == '__main__':
 	app.run(debug=True)

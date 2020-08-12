@@ -4,6 +4,7 @@ import logging
 #logging.basicConfig(level=logging.INFO)
 
 deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
+player_unused_hand = []
 
 
 # deal: Crea un arreglo hand y la llena de manera random
@@ -28,20 +29,19 @@ def deal():
 def deal_Card():
   global deck
   deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
-  hand = []
-  for i in range(1):
-    random.shuffle(deck)
-    card = deck.pop()
-    if card == 11:card = "J"
-    if card == 12:card = "Q"
-    if card == 13:card = "K"
-    if card == 14:card = "A"
-    hand.append(card)
-  return hand
+  card = ''
+  
+  random.shuffle(deck)
+  card = deck.pop()
+  if card == 11:card = "J"
+  if card == 12:card = "Q"
+  if card == 13:card = "K"
+  if card == 14:card = "A"
+  return card
 
 # select_hand: Método para seleccionar una nueva mano
 def select_hand(hand, new_hand):
-  selected_hand = hand
+  
   trigger = True
   action = 0;
  
@@ -51,29 +51,32 @@ def select_hand(hand, new_hand):
 
     if action == "1":
       print("Haz seleccionado la mano 1")
+      return hand
+      player_unused_hand = new_hand
       trigger = False
     elif action == "2":
       print("Haz seleccionado la mano 2")
-      selected_hand = new_hand
+      return new_hand
+      player_unused_hand = hand
       trigger = False
     else:
       print("Haz seleccionado una mano inválida, prueba otra vez")
-  return select_hand
+  
 
 # split: Si el jugador tiene dos carstas iguales, las divide en dos mazos distintos 
 # y otorga una nueva carata a cada uno.
 def split(hand):
   nueva = deal()
-  hand =[4,4]
+  # hand =[4,4] para pruebas
   aux_card = ''
   counter=0
-  selected_hand = hand;
-  split = False
+  selected_hand = [];
+  split_was = False
 
   for card in hand:
     if (card == aux_card):
-      print(str(card) + " y " + str(aux_card) +" son iguales. Puedes dividir")
-      split = True
+      print(str(card) + " y " + str(aux_card) +" son iguales. Su baraja se dividirá en dos.")
+      split_was = True
       hand.pop(counter)
       nueva.pop()
       nueva.append(card)
@@ -83,14 +86,19 @@ def split(hand):
 
     aux_card = card
     counter = counter +1
-  if split == True:
+  print(split_was)
+  if split_was == True:
     selected_hand = select_hand(hand, nueva)
-  return select_hand
+  else:
+    print("No tienes cartas iguales en la baraja.")
+
+  return selected_hand
 
 def total(hand, return_usable_ace=False):
   total = 0
   aces = 0
   used_aces = 0
+
   for card in hand:
     if card == "J" or card == "Q" or card == "K":
       total += 10
@@ -98,7 +106,7 @@ def total(hand, return_usable_ace=False):
       total += 1
       aces += 1
     else:
-      total += card
+      total += int(card)
   if total < 11 and aces > 0:
     total += 10
     used_aces += 1
@@ -119,47 +127,57 @@ def hit(hand):
 
 
 def print_results(dealer_hand, player_hand):
-  logging.info("El dealer tiene un" + str(dealer_hand) + " para un total de " + str(total(dealer_hand)))
-  logging.info("Tu tienes " + str(player_hand) + " para un total de  " + str(total(player_hand)))
+  print("El dealer tiene un" + str(dealer_hand) + " para un total de " + str(total(dealer_hand)))
+  print("Tu tienes " + str(player_hand) + " para un total de  " + str(total(player_hand)))
 
 
 def score(dealer_hand, player_hand):
   print_results(dealer_hand, player_hand)
-  if total(player_hand) == 21:
-    logging.info("¡Felicitaciones, ganaste! ¡Tienes un Blackjack!\n")
+  if total(player_hand) == 21: 
+    # print("¡Felicitaciones, ganaste! ¡Tienes un Blackjack!\n") 
+    print("¡Felicitaciones, ganaste! ¡Tienes 21!\n")
     return 1.0
   elif total(dealer_hand) == 21:
-    logging.info("Perdiste. El dealer gana con un Blackjack.\n")
+    # print("Perdiste. El dealer gana con un Blackjack.\n")
+    print("Perdiste. El dealer gana con 21.\n")
+    # if not player_unused_hand:
+    #   print("Perdiste. El dealer gana con 21.\n")
+    # else:
+    #   print("Activando mazo de repuesto...")
     return -1.0
   elif total(player_hand) > 21:
-    logging.info("Lo siento, te pasaste de 21 y perdiste\n")
+    print("Lo siento, te pasaste de 21 y perdiste.\n")
+    # if not player_unused_hand:
+    #   print("Lo siento, te pasaste de 21 y perdiste.\n")
+    # else:
+    #   print("Activando mazo de repuesto...")
     return -1.0
   elif total(dealer_hand) > 21:
-    logging.info("El dealer se pasó de 21. ¡Ganaste!\n")
+    print("El dealer se pasó de 21. ¡Ganaste!\n")
     return 1.0
   elif total(player_hand) < total(dealer_hand):
-    logging.info("Lo siento! Tu puntuación es menos que la del dealer, perdiste.\n")
+    print("Lo siento! Tu puntuación es menor que la del dealer, perdiste.\n")
     return -1.0
   elif total(player_hand) > total(dealer_hand):
-    logging.info("Felicitaciones! Ganaste!, tu puntuación es más grande que la del dealer\n" )
+    print("Felicitaciones! Ganaste!, tu puntuación es mayor que la del dealer.\n" )
     return 1.0
   else:
-    logging.info("Un empate")
+    print("Un empate")
     return 0.0
 
 def game(get_player_action):
 
   # store list of data that
   player_data_lst = []
-  logging.info("Bienvenido a Blackjack!\n")
+  print("¡Bienvenido a Blackjack / 21!\n")
   
   dealer_hand = deal() #Da carats aleatorias al jugador
   player_hand = deal()
   choice = 0
   reward = -2.0
   while choice != "q":
-    logging.info("El dealer muestra " + str(dealer_hand[0]))
-    logging.info("Tu tienes " + str(player_hand) + " para un total de " + str(total(player_hand)))
+    print("El dealer muestra " + str(dealer_hand[0]))
+    print("Tu tienes " + str(player_hand) + " para un total de " + str(total(player_hand)))
     # si alguno de los jugadores llega a 21 automáticamente se queda ahí con stand.
     if total(player_hand) >= 21 or total(dealer_hand) >= 21: 
       choice = "s"
@@ -176,7 +194,8 @@ def game(get_player_action):
       choice = "q"
     elif choice == "sp":
       print("Ha seleccionado dividir")
-      split(player_hand)
+      player_hand = split(player_hand)
+      print("player hand"+ str(type(player_hand)))
     	# player_hand = split(player_hand)
     	
     	
@@ -193,7 +212,7 @@ def interactive_action(player_hand, dealer_hand):
 
 if __name__ == "__main__":
   logging.getLogger().setLevel(logging.INFO)
-  print("Juguemos 21!")
+  print("¡Juguemos!")
   # Puntuación, listado de jugadas ,estado final
   (reward, player_data_lst, final_state) = game(interactive_action)
   # print(f"reward: {reward}")

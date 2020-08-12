@@ -21,11 +21,12 @@
 
      <div class="btn-group-vertical ">
 
-   <a href="{{url_for('datos')}}"> <button type="button" id="1" class="button">PEDIR</button></a>
+   <a href="{{url_for('datos')}}"> 
+    <button type="button" class="button" value="0" onclick="botones(this.value);">PEDIR</button></a>
     <br>
-    <button type="button" class="button1">PLANTAR</button>
+    <button type="button" class="button1" value="1" onclick="botones(this.value);">PLANTAR</button>
     <br>
-    <button type="button" class="button1">RENDISE </button>
+    <button type="button" class="button1" value="2" onclick="botones(this.value);">RENDISE </button>
     <br>
     <button type="button" class="button1">DIVIDIR  </button>
     <br>
@@ -38,6 +39,7 @@
     <script src="{{url_for('static',filename='./js/jQuery_3.4.1.min.js')}}"></script>
     <script src="{{url_for('static',filename='./js/jquery-ui.min.js')}}"></script>
      <script type="text/javascript" src="{{url_for('static',filename='./js/bootstrap.min.js')}}"></script>
+     <script type="text/javascript" src="{{url_for('static',filename='./js/scripts.js')}}"></script>
   </body>
   <footer>
     

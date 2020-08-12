@@ -86,11 +86,12 @@ def split(hand):
 
     aux_card = card
     counter = counter +1
-  print(split_was)
+    # print(split_was)
   if split_was == True:
     selected_hand = select_hand(hand, nueva)
   else:
     print("No tienes cartas iguales en la baraja.")
+    selected_hand=hand
 
   return selected_hand
 
@@ -127,6 +128,9 @@ def hit(hand):
 
 
 def print_results(dealer_hand, player_hand):
+  print("\n");
+  print("Jugada:");
+  print("///////////");
   print("El dealer tiene un" + str(dealer_hand) + " para un total de " + str(total(dealer_hand)))
   print("Tu tienes " + str(player_hand) + " para un total de  " + str(total(player_hand)))
 
@@ -176,6 +180,9 @@ def game(get_player_action):
   choice = 0
   reward = -2.0
   while choice != "q":
+    print("\n");
+    print("Jugada:");
+    print("///////////");
     print("El dealer muestra " + str(dealer_hand[0]))
     print("Tu tienes " + str(player_hand) + " para un total de " + str(total(player_hand)))
     # si alguno de los jugadores llega a 21 automáticamente se queda ahí con stand.
@@ -195,7 +202,7 @@ def game(get_player_action):
     elif choice == "sp":
       print("Ha seleccionado dividir")
       player_hand = split(player_hand)
-      print("player hand"+ str(type(player_hand)))
+      # print("player hand"+ str(type(player_hand)))
     	# player_hand = split(player_hand)
     	
     	
@@ -205,7 +212,7 @@ def game(get_player_action):
 
 def interactive_action(player_hand, dealer_hand):
  
-  action = input("Quieres [H]it(Pedir carta), [S]tand(Plantarte),[Sp]Split(Separar), o [Q]uit(Salir): ").lower()
+  action = input("Quieres"+ "\n[H](Pedir carta)"+"\n[S](Plantarte)"+"\n[Sp](Separar)"+"\n[Q](Salir): ").lower()
   assert action in ["s", "h","sp", "q"]
   return (action, ())
 

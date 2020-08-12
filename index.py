@@ -1,31 +1,29 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,redirect,url_for
+
 
 app = Flask(__name__)
 
-
-@app.route('/')
+@app.route(r'/')
 def home():
 	return render_template('index.html')
 
-@app.route('/datos', methods = ['POST','GET'])
+@app.route(r'/datos', methods = ['POST','GET'])
 def datos():
-	cars = ["Ford", "Volvo", "BMW"] 
-	nombre= request.form['nombre'];
-	int(request.args.get('player_move',0))
-	return render_template('mesa.html',nombre=nombre)
+    nombre= request.form['nombre'];
+    return render_template('mesa.html',nombre=nombre)
 
-@app.route('/datos/numero',methods = ['POST','GET'])
-def funcion2(request):
-    print("ah")
-    if request.method == 'POST':
-        id1 = request.POST['id1']
-        return render_template('index.html')
-    else:
-        return HttpResponse("Peticion no valida")
+#@app.route(r'/postmethod', methods = ['POST'])
+#def get_post_javascript_data():
+ #   jsdata = request.form['javascript_data']
+   
+  #  return jsdata[0]
 
+@app.route(r'/postmethod', methods = ['GET'])
+def get_post_javascript_data():
+    jsdata = request.args.get("holi",0)
 
+    return jsdata
 
 if __name__ == '__main__':
 	app.run(debug=True)
-
 

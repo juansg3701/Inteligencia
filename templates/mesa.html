@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            21
+        </title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"/>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,400;1,700&display=swap" rel="stylesheet"/>
+        <!-- Animaciones -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+        <!-- Mystyles -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='./css/style_deck.css') }}"/>
+    </head>
+    <body background="{{ url_for('static',filename='img/fondo7.jpg') }}">
+        <br/>
+        <div class="p-5 menu col-md-4 animate__animated animate__fadeInLeft">
+            <div class="row gold">
+                <a class="home-link invert" href="{{ url_for('home') }}">
+                    <img src="../static/img/home.png"/>
+                </a>
+                <h1 class="p-2">
+                    {{ nombre }}
+                </h1>
+            </div>
+            <div class="btn-group-vertical p-3">
+                <button type="button" class=" button" value="h" onclick="botones(this.value);">
+                    PEDIR
+                </button>
+                <br/>
+                <button type="button" class="button" value="s" onclick="botones(this.value);">
+                    PLANTAR
+                </button>
+                <br/>
+                <button type="button" class="button" value="q" onclick="botones(this.value);">
+                    RENDISE
+                </button>
+                <br/>
+                <button type="button" value="sp" class="button">
+                    DIVIDIR
+                </button>
+                <!-- <br/>
+                    <button type="button" class="button">
+                        SEGURO
+                    </button>
+                -->
+            </div>
+        </div>
+        <script src="{{url_for('static',filename='./js/jQuery_3.4.1.min.js')}}"></script>
+        <script src="{{url_for('static',filename='./js/jquery-ui.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static',filename='./js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static',filename='./js/scripts.js')}}"></script>
+    </body>
+    <footer>
+    </footer>
+</html>

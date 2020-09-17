@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            21
+        </title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,400;1,700&display=swap" rel="stylesheet"/>
+        <!-- Animaciones -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+        <!-- My styles -->
+        <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet"/>
+    </head>
+    <body background="{{ url_for('static',filename='img/fondo-principal.jpg') }}">
+        <form action="http://localhost:5000/datos" method="post">
+            <div class="container col-md-7 text-rigth style-principal p-5 ">
+                <div class="form-row">
+                    <div class="form-group style-title animate__animated animate__jackInTheBox gold">
+                        <h3>
+                            BlackJack / 21
+                        </h3>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="nombre">
+                        Ingresa tu nombre:
+                    </label>
+                    <div id="nombre" class="form-group">
+                        <input type="text" name="nombre"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <a href="/mesa">
+                            <button type="submit" name="" id="Entrar" class="btn form-control btn-gold">
+                                Entrar
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script src="{{url_for('static',filename='./js/jQuery_3.4.1.min.js')}}"></script>
+        <script src="{{url_for('static',filename='./js/jquery-ui.min.js')}}"></script>
+    </body>
+</html>
